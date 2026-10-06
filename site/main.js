@@ -85,3 +85,8 @@
     if (!paused && !document.hidden) step(1, true);
   }, INTERVAL);
 })();
+
+// Ano atual no rodapé
+document.querySelectorAll('[data-year]').forEach(function (el) {
+  el.textContent = new Date().getFullYear();
+});
