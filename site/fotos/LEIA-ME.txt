@@ -1,0 +1,6 @@
+Coloque aqui as fotos de atendimentos do carrossel:
+atendimento-1.jpg, atendimento-2.jpg, ... atendimento-16.jpg
+
+- Formato retrato (4:5) fica melhor, ex.: 800x1067 (3:4) ou 1080x1350 (4:5).
+- Tente deixar cada foto com menos de 300 KB.
+- Para usar outros nomes ou mais/menos fotos, edite os <figure> em index.html.

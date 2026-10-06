@@ -1,25 +1,45 @@
-# CODING AGENTS: READ THIS FIRST
+# MG Guinchos — Landing page
 
-This is a **handoff bundle** from Claude Design (claude.ai/design).
+Landing page da MG Guinchos (guincho 24h em Igrejinha e Região). Site estático em HTML, CSS e JavaScript puro, pronto para a Vercel. Não tem dependências: o único "build" é um script que coloca o endereço do site nos lugares certos.
 
-A user mocked up designs in HTML/CSS/JS using an AI design tool, then exported this bundle so a coding agent can implement the designs for real.
+## Estrutura
 
-## What you should do — IMPORTANT
+```
+site/                 ← tudo que vai para o ar
+  index.html          ← conteúdo da página (textos, links, SEO)
+  styles.css          ← visual (cores no topo, em :root)
+  main.js             ← carrossel de fotos
+  assets/             ← logo, ícones, imagem de compartilhamento (og-image)
+  fotos/              ← fotos de atendimentos do carrossel
+  robots.txt, sitemap.xml, favicon.ico
+scripts/build.mjs     ← copia site/ para dist/ preenchendo o endereço do site
+vercel.json           ← configuração da Vercel (roda o build e publica dist/)
+project/, chats/      ← design original do Claude Design (só referência, não é publicado)
+```
 
-**Read the chat transcripts first.** There are 1 chat transcript(s) in `chats/`. The transcripts show the full back-and-forth between the user and the design assistant — they tell you **what the user actually wants** and **where they landed** after iterating. Don't skip them. The final HTML files are the output, but the chat is where the intent lives.
+## Rodar localmente
 
-**Read `project/MG Guinchos.dc.html` in full.** The user had this file open when they triggered the handoff, so it's almost certainly the primary design they want built. Read it top to bottom — don't skim. Then **follow its imports**: open every file it pulls in (shared components, CSS, scripts) so you understand how the pieces fit together before you start implementing.
+```bash
+npm run dev
+# abra http://localhost:4173
+```
 
-**If anything is ambiguous, ask the user to confirm before you start implementing.** It's much cheaper to clarify scope up front than to build the wrong thing.
+## Fotos do carrossel
 
-## About the design files
+Coloque as fotos em `site/fotos/` com os nomes `atendimento-1.jpg` … `atendimento-16.jpg` (em pé, por exemplo 800x1067, até ~300 KB cada; sem dados de localização).
+Fotos que não existirem são escondidas sozinhas. Enquanto não houver nenhuma, aparecem os espaços vazios do layout.
+Para mudar nomes ou quantidade, edite os `<figure class="slide">` em `site/index.html`.
 
-The design medium is **HTML/CSS/JS** — these are prototypes, not production code. Your job is to **recreate them pixel-perfectly** in whatever technology makes sense for the target codebase (React, Vue, native, whatever fits). Match the visual output; don't copy the prototype's internal structure unless it happens to fit.
+## Publicar na Vercel
 
-**Don't render these files in a browser or take screenshots unless the user asks you to.** Everything you need — dimensions, colors, layout rules — is spelled out in the source. Read the HTML and CSS directly; a screenshot won't tell you anything they don't.
+1. Suba este repositório para o GitHub.
+2. Na Vercel: **Add New → Project**, importe o repositório e clique em **Deploy**. O `vercel.json` já configura tudo.
+3. Domínio: em **Settings → Domains**, adicione o domínio (ex.: `mgguinchos.com.br`) e configure o DNS no registro.br conforme a Vercel indicar.
 
-## Bundle contents
+## Antes de entregar ao cliente
 
-- `README.md` — this file
-- `chats/` — conversation transcripts (read these!)
-- `project/` — the `MG Guinchos landing page` project files (HTML prototypes, assets, components)
+- **Domínio:** não precisa trocar nada no código. Os arquivos usam `__SITE_URL__` e, na Vercel, o build troca isso pelo domínio de produção (o domínio próprio, se já estiver configurado, ou o `.vercel.app`). **Depois de adicionar o domínio na Vercel, faça um Redeploy** (Deployments → ⋯ → Redeploy) para o site passar a usar o endereço novo. Para forçar um endereço, crie a variável de ambiente `SITE_URL` na Vercel.
+- **Cidades atendidas:** a lista fica em `site/index.html`, em dois lugares: a seção "Onde atendemos" (`<ul class="cities__list">`) e o `areaServed` do bloco `application/ld+json`.
+- **WhatsApp:** todos os botões usam `https://wa.me/message/YY4A3Y4D3JLIG1`.
+- **Telefone:** os botões "Ligar" usam `tel:+5551997976767`, ou seja, (51) 99797-6767. Também aparece no rodapé e nos dados para o Google.
+- **Fotos:** adicione as fotos reais em `site/fotos/`.
